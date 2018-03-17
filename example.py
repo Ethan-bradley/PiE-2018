@@ -17,6 +17,7 @@ def teleop_setup():
     print("Tele-operated mode has started!")
 
 def teleop_main():
+    print("anything")
     right_y = Gamepad.get_value("joystick_right_y")
     if right_y > 0.5:
         Robot.set_value(right_motor, "duty_cycle", -1.0)
@@ -31,3 +32,9 @@ def teleop_main():
         Robot.set_value(left_motor, "duty_cycle", -1.0)
     else:
         Robot.set_value(left_motor, "duty_cycle", 0)
+        
+    print("something else")
+    
+    if Robot.get_value("rfid", "tag_detect"):
+        Robot.set_value(left_motor, "duty_cycle", 1.0)
+        print(Robot.get_value("rfid", "id"))
