@@ -4,6 +4,39 @@ RFID = "51977114113569040836828"
 lineID = "4748884830604085344402"
 deg180 = 3.6
 
+def most_common_digit(num):
+  #YOUR CODE HERE
+  countstring=str(num)
+  array=[]
+  if num == 0:
+    return 0
+  for i in countstring:
+    if (not i=="0") or i.isDigit():
+      j = 0
+      while True:
+        if j==len(array):
+          array.append([i,1])
+          break
+        if array[j][0]==i:
+          array[j][1]+=1
+          break
+        j+=1
+  if(len(array)==0):return num
+  h = [array[0]]
+  for d in range(1,len(array)):
+    if array[d][1]>h[0][1]:
+      h[0]=array[d]
+    elif array[d][1]==h[0][1]:
+      h.append(array[d])
+  hi = h[0][0]
+  if len(h) > 1:
+    for i in h:
+      if i[0]>hi:
+        hi = i[0]
+  else:
+    return int(h[0][0])
+  return int(hi)
+
 # Sets value of a specified motor controller (YogiBear)
 # @param devID: <String> identifies which controller will be set, value: <float> [-1, 1] specifies % power of motor
 def setM(devID, value):
