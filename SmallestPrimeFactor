@@ -1,0 +1,20 @@
+def smallest_prime_fact(num):
+  n = num
+  d = []
+  if num == 2:
+      return 2
+  elif num == 1:
+      return 1
+  elif num == 0:
+      return 0
+  for i in range(2,n+1):
+    if n % i == 0:
+      d.append(i)
+  min = d[0]
+  for i in range(0,len(d)):
+    if (d[i] < min):
+      min = d[i]
+  return min
+  
+  
+print(smallest_prime_fact(59*53))
