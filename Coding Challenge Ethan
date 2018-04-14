@@ -1,0 +1,57 @@
+def valid_isbn_ten(num):
+    #YOUR CODE HERE
+    print("a")
+    num2 = str(num)
+    c = []
+    checkDigit = 0
+    for digit in num2:
+      c.append(int(digit))
+    k = len(c)
+    v = 0
+    for i in range(k,0,-1):
+      print(i)
+      checkDigit += c[v]*i
+      v+=1;
+    
+    if checkDigit%11 == 0:
+      return num
+    else: 
+      return (valid_isbn_ten(num+1))
+      
+def silly_base_two(num):
+  # YOUR CODE HERE
+  return int(bin(num)[2:])
+  
+def double_caesar_cipher(num):
+  pi = 3141592653
+  p = str(pi)
+  key = str(num)
+  end = ""
+  sum = 0
+  re = ""
+  k = len(key)-1
+  # YOUR CODE HERE
+  for i in range(len(p)-1,-1,-1):
+    print("key"+key[k])
+    print(k)
+    print("pnum"+p[i])
+    sum = int(key[k]) + int(p[i])
+    if sum >= 10:
+        sum = str(sum)
+        sum = int(sum[len(sum)-1])
+    end = str(sum) + end
+    
+    print("sum"+str(sum))
+
+    sum = 0
+    if k == 0:
+      k = len(key)
+    k-=1  
+  #for i in range(len(end)-1,0,-1):
+   # re = re + end[i]
+  return int(end)
+  
+#print(double_caesar_cipher(196))
+#|Result    |9    |2    |3    |7    |6    |8    |8    |7    |4    |9   |
+
+
