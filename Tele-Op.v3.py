@@ -92,18 +92,30 @@ def teleop_main():
     rsb = Gamepad.get_value("r_stick")
     # left stick button
     lsb = Gamepad.get_value("l_stick")
+    #Right Servo
+    rS = "servo0"
+    #Left Servo
+    lS = "servo1"
     # slow speed value (for easy debug)
     s = 0.4
     # joystick treshhold
     thresh = 0.1
+    #Angle of servo movement
+    angle = 0.08
     if rY > thresh:
-        setM(rM, -s if rsb else -1)
+        #setM(rM, -s if rsb else -1)
+        #Move Right
+        Robot.set_value(servo_arm_id, lS, angle) 
+        Robot.set_value(servo_arm_id, rS, -angle)
     elif rY < -thresh:
         setM(rM, s if rsb else 1)
     else:
         setM(rM, 0)
     if lY > thresh:
-        setM(lM, s if lsb else 1)
+        #setM(lM, s if lsb else 1)
+        #Move left
+        Robot.set_value(servo_arm_id, lS, -angle) 
+        Robot.set_value(servo_arm_id, rS, angle)
     elif lY < -thresh:
         setM(lM, -s if lsb else -1)
     else:
