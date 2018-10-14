@@ -108,18 +108,27 @@ def teleop_main():
         Robot.set_value(servo_arm_id, lS, angle) 
         Robot.set_value(servo_arm_id, rS, -angle)
     elif rY < -thresh:
-        setM(rM, s if rsb else 1)
+        #setM(rM, s if rsb else 1)
+        Robot.set_value(servo_arm_id, rS, 0)
+        Robot.set_value(servo_arm_id, lS, 0)
     else:
-        setM(rM, 0)
+        #setM(rM, 0)
+        #Resets to zero
+         Robot.set_value(servo_arm_id, rS, 0)
+        Robot.set_value(servo_arm_id, lS, 0)
     if lY > thresh:
         #setM(lM, s if lsb else 1)
         #Move left
         Robot.set_value(servo_arm_id, lS, -angle) 
         Robot.set_value(servo_arm_id, rS, angle)
     elif lY < -thresh:
-        setM(lM, -s if lsb else -1)
+        #setM(lM, -s if lsb else -1)
+        Robot.set_value(servo_arm_id, rS, 0)
+        Robot.set_value(servo_arm_id, lS, 0)
     else:
-        setM(lM, 0)
+        #setM(lM, 0)
+        Robot.set_value(servo_arm_id, rS, 0)
+        Robot.set_value(servo_arm_id, lS, 0)
         
     # if Robot.get_value(RFID, "tag_detect"):
     #     print(Robot.get_value(RFID, "id"))
