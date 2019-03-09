@@ -1,12 +1,18 @@
-left_motor = "47244746209103038488530"
-right_motor = "47247829588732201610280"
+left_motor = "56692008314550567751418"
+right_motor = "56695389584535285373953"
+#central_motor = ""
+servo_arm_id = "33080838212650385105500"
 
 def autonomous_setup():
     print("Autonomous mode has started!")
     Robot.run(autonomous_actions)
 
 def autonomous_main():
-    pass
+    #Robot.set_value(left_motor, "duty_cycle", -1.0)
+    #Robot.set_value(right_motor, "duty_cycle", 1.0)
+    Robot.set_value(servo_arm_id, "servo1", 0.0) 
+    Robot.set_value(servo_arm_id, "servo0", 0.0) 
+
 
 async def autonomous_actions():
     print("Autonomous action sequence started")
