@@ -2,14 +2,15 @@ right_motor = "56692008314550567751418"
 left_motor = "56695389584535285373953"
 #central_motor = ""
 servo_arm_id = "33085227150045326350192"
-line_followers = "4754803307256596519891"
+line_follower_id = "4754803307256596519891"
 
 def autonomous_setup():
     print("Autonomous mode has started!")
     Robot.run(autonomous_actions)
 
 def autonomous_main():
-    print("main")
+    pass
+    #print("m")
     #Robot.set_value(left_motor, "duty_cycle", -1.0)
     #Robot.set_value(right_motor, "duty_cycle",1.0)
     #Robot.set_value(servo_arm_id, "servo1", 1.0) 
@@ -19,39 +20,43 @@ def autonomous_main():
     
     
 async def autonomous_actions():
-    #Robot.set_value(servo_arm_id, "servo1", 1.0) 
-    #Robot.set_value(servo_arm_id, "servo0", 1.0) 
+    Robot.set_value(servo_arm_id, "servo1", 1.0) 
+    Robot.set_value(servo_arm_id, "servo0", 1.0) 
+    await Actions.sleep(2.0)
     #Tells robot to move forward:
-    Robot.run(autonomous_move)
+    #Robot.run(autonomous_follow_line)
     
     
 async def autonomous_move():
     #Tells robot to move forward:
     #Opposite to go forward, same to turn.
     print("Starting forward")
-    Robot.set_value(left_motor, "duty_cycle", 0.5)
-    Robot.set_value(right_motor, "duty_cycle", -0.5)
-    await Actions.sleep(1.0)
-    print("Starting turn")
-    Robot.set_value(left_motor, "duty_cycle", 0.5)
-    Robot.set_value(right_motor, "duty_cycle", 0.5)
-    await Actions.sleep(0.5)
+    Robot.set_value(left_motor, "duty_cycle", 0.3)
+    Robot.set_value(right_motor, "duty_cycle", -0.3)
+    await Actions.sleep(2.0)
+    print("Starting right turn 90 degrees")
+    Robot.set_value(left_motor, "duty_cycle", 0.3)
+    Robot.set_value(right_motor, "duty_cycle", 0.3)
+    await Actions.sleep(3.3)
     print("Starting foward")
     Robot.set_value(left_motor, "duty_cycle", 0.5)
     Robot.set_value(right_motor, "duty_cycle", -0.5)
-    await Actions.sleep(1.0)
+    await Actions.sleep(2.0)
     print("Ending")
     
-def autonomous_follow_line():
+async def autonomous_follow_line():
+    print("Starting forward")
     #Tells robot to move along line (More than 0.9 is black, less is white):
     if(Robot.get_value(line_follower_id, "center") <= 0.9):
         #Tells robot to move forward if on white line
         Robot.set_value(left_motor, "duty_cycle", 0.4)
-        Robot.set_value(right_motor, "duty_cycle", 0.4)
+        Robot.set_value(right_motor, "duty_cycle", -0.4)
+        print("Go straight")
     elif (Robot.get_value(line_follower_id, "center") > 0.9):
         #Tells robot to turn if not on white line
         Robot.set_value(left_motor, "duty_cycle", -0.4)
-        Robot.set_value(right_motor, "duty_cycle", 0.4)
+        Robot.set_value(right_motor, "duty_cycle", -0.4)
+        print("Turn")
 
 async def autonomous_pick_up_center_box():
     #Tells robot to move forward:
@@ -73,7 +78,7 @@ def teleop_setup():
     print("Tele-operated mode has started!")
 
 def teleop_main():
-    #print("anything")
+    print("anything")
     right_y = Gamepad.get_value("joystick_right_y")
     if right_y > 0.5:
         Robot.set_value(right_motor, "duty_cycle", -1.0)
